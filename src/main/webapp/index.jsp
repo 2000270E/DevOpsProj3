@@ -53,6 +53,10 @@
 						<option>Temporary</option>
 						</select></td>
 				</tr>
+				<tr>
+					<td><b>Email</b></td>
+					<td><input type="text" name="email"></td>
+				</tr>
 			</table>
 
 		
@@ -64,16 +68,6 @@
 	
 	</form>
 	
-	<form action="EmailServlet" method="post">	
-			<table>
-			<tr>
-				<td> Email:</td>
-				<td><input type="text" name="email"></td>
-				<br><br>
-				<td> <input type="submit" value="Add Email to Database"></td>
-			</tr>
-			</table>
-			</form>
 				
 			<br></br>
 				<a href="<%=request.getContextPath()%>/WorkerManageServlet/dashboard"

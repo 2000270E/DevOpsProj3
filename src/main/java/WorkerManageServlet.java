@@ -26,11 +26,11 @@ public class WorkerManageServlet extends HttpServlet {
 	private String jdbcPassword = "password";
 
 	private static final String INSERT_WORKERS_SQL = "INSERT INTO WorkerDetails"
-			+ " (name, date, gender, phone, role, type) VALUES " + " (?, ?, ?,?,?);";
-	private static final String SELECT_WORKER_BY_ID = "select name,date,gender,phone,role,type from WorkerDetails where name =?";
+			+ " (name, date, gender, phone, role, type, email) VALUES " + " (?, ?, ?,?,?,?);";
+	private static final String SELECT_WORKER_BY_ID = "select name,date,gender,phone,role,type,email from WorkerDetails where name =?";
 	private static final String SELECT_ALL_WORKERS = "select * from WorkerDetails ";
 	private static final String DELETE_WORKERS_SQL = "delete from WorkerDetails where name = ?;";
-	private static final String UPDATE_WORKERS_SQL = "update WorkerDetails set name = ?,date= ?, gender =?, phone=?, role =?, type =? where name = ?;";
+	private static final String UPDATE_WORKERS_SQL = "update WorkerDetails set name = ?,date= ?, gender =?, phone=?, role =?, type =?, email=? where name = ?;";
 
 	protected Connection getConnection() {
 		Connection connection = null;
@@ -98,7 +98,8 @@ public class WorkerManageServlet extends HttpServlet {
 				String phone = rs.getString("phone");
 				String role = rs.getString("role");
 				String type = rs.getString("type");
-				workers.add(new Worker(name, date, gender, phone, role, type));
+				String email = rs.getString("email");
+				workers.add(new Worker(name, date, gender, phone, role, type, email));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -113,7 +114,7 @@ public class WorkerManageServlet extends HttpServlet {
 			throws SQLException, ServletException, IOException {
 		// get parameter passed in the URL
 		String name = request.getParameter("name");
-		Worker existingWorker = new Worker("", "", "", "", "", "");
+		Worker existingWorker = new Worker("", "", "", "", "", "","");
 		// Step 1: Establishing a Connection
 		try (Connection connection = getConnection();
 				// Step 2:Create a statement using connection object
@@ -129,7 +130,8 @@ public class WorkerManageServlet extends HttpServlet {
 				String phone = rs.getString("phone");
 				String role = rs.getString("role");
 				String type = rs.getString("type");
-				existingWorker = new Worker(name, date, gender, phone, role, type);
+				String email = rs.getString("email");
+				existingWorker = new Worker(name, date, gender, phone, role, type, email);
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -150,6 +152,7 @@ public class WorkerManageServlet extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String role = request.getParameter("role");
 		String type = request.getParameter("type");
+		String email = request.getParameter("email");
 
 		// Step 2: Attempt connection with database and execute update user SQL query
 		try (Connection connection = getConnection();
@@ -160,7 +163,8 @@ public class WorkerManageServlet extends HttpServlet {
 			statement.setString(4, phone);
 			statement.setString(5, role);
 			statement.setString(6, type);
-			statement.setString(7, oriName);
+			statement.setString(7, email);
+			statement.setString(8, oriName);
 			int i = statement.executeUpdate();
 		}
 		// Step 3: redirect back to UserServlet (note: remember to change the url to
