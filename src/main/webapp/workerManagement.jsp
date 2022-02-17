@@ -23,7 +23,7 @@
 				<thead>
 					<tr>
 						<th>Name</th>
-						<th>BirthDate</th>
+						<th>Birth Date</th>
 						<th>Gender</th>
 						<th>Mobile Number</th>
 						<th>Job Scope</th>
