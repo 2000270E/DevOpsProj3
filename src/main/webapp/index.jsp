@@ -54,7 +54,7 @@
 						</select></td>
 				</tr>
 				<tr>
-					<td><b>Email</b></td>
+					<td><b>Email:</b></td>
 					<td><input type="text" name="email"></td>
 				</tr>
 			</table>
